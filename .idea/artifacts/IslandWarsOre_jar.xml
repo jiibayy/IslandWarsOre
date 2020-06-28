@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="IslandWarsOre:jar">
+    <output-path>D:/Minecraft/Local Server 1.8/plugins</output-path>
+    <root id="archive" name="IslandWarsOre.jar">
+      <element id="module-output" name="IslandWarsOre" />
+    </root>
+  </artifact>
+</component>
