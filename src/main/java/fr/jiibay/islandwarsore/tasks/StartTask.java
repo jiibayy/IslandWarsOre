@@ -5,18 +5,24 @@ import fr.jiibay.islandwarsore.managers.PlayerProfile;
 import fr.jiibay.islandwarsore.managers.Stat;
 import fr.jiibay.islandwarsore.managers.Team;
 import fr.jiibay.islandwarsore.utils.Title;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class StartTask extends BukkitRunnable {
 
-    public static int timer = 11;
+    public static int timer = 30;
 
     @Override
     public void run() {
+
+
+        if (Bukkit.getOnlinePlayers().size() < Bukkit.getMaxPlayers()){
+            timer = 30 + 1;
+            cancel();
+            MainIWO.getInstance().setStat(Stat.LOBBY);
+            Bukkit.broadcastMessage(ChatColor.RED + "Pas assez de joueurs le chronmètre reviens à zéro.");
+        }
 
         timer--;
         if (timer == 10 || timer == 9 || timer == 8 || timer == 7 || timer == 6 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1 || timer == 0){
@@ -39,20 +45,23 @@ public class StartTask extends BukkitRunnable {
                     } else {
                         Team.RED.addPlayer(players, pp);
                     }
-                }
-                PlayerProfile playerProfile = MainIWO.getInstance().playerProfile.get(players.getUniqueId());
 
-                if (playerProfile.getTeam() == Team.BLUE){
-                    players.teleport(new Location(Bukkit.getWorld("world"), 150, 10,150));
-                }
-                if (playerProfile.getTeam() == Team.RED){
-                    players.teleport(new Location(Bukkit.getWorld("world"), 150, 10,150));
                 }
             }
+
+            for (Player players : Bukkit.getOnlinePlayers()){
+                PlayerProfile playerProfile = MainIWO.getInstance().playerProfile.get(players.getUniqueId());
+
+                if (playerProfile.getTeam() == Team.RED){
+                    players.setBedSpawnLocation();
+                }
+            }
+            MainIWO.getInstance().getArmorStand().createArmorStand(new Location(Bukkit.getWorld("world"), 1045, 5, 182), ChatColor.BLUE + "Coffre bleu");
+            MainIWO.getInstance().getArmorStand().createArmorStand(new Location(Bukkit.getWorld("world"), 1126, 5, 182), ChatColor.RED + "Coffre rouge");
             MainIWO.getInstance().setStat(Stat.PLAYING);
+            PlayingTask playingTask = new PlayingTask();
+            playingTask.runTaskTimer(MainIWO.getInstance(), 10L, 20L);
             cancel();
-
-
         }
     }
 }

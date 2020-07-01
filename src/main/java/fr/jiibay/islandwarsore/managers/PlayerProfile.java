@@ -30,8 +30,8 @@ public class PlayerProfile {
         return team;
     }
 
-    public void setKill(int kill) {
-        this.kill = kill;
+    public void addKill(int kill) {
+        this.kill = kill + kill;
     }
 
     public int getKill() {

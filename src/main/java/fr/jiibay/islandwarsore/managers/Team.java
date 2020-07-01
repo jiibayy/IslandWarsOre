@@ -10,8 +10,8 @@ import java.util.UUID;
 
 public enum Team {
 
-    BLUE(ChatColor.BLUE + "[Bleu]", 1, 0),
-    RED(ChatColor.RED + "[Rouge]", 1, 0),
+    BLUE(ChatColor.BLUE + "[Bleu]", 5, 0),
+    RED(ChatColor.RED + "[Rouge]", 5, 0),
     NONE(   "§", 100,0);
 
     private ArrayList<UUID> playerlist;
@@ -35,7 +35,7 @@ public enum Team {
     }
 
     public void addPoints(int points) {
-        this.points = points;
+        this.points = this.points + points;
     }
 
     public String getName() {

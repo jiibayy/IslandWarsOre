@@ -20,6 +20,7 @@ import java.util.UUID;
 public class MainIWO extends JavaPlugin {
 
     public static MainIWO instance;
+    public GiveItem giveItem = new GiveItem();
     public Scoreboard scoreboardMain;
     public ScoreboardManager scoreboardManager = new ScoreboardManager();
     public HashMap<UUID, PlayerProfile> playerProfile = new HashMap<UUID, PlayerProfile>();
@@ -36,6 +37,8 @@ public class MainIWO extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
 
         setStat(Stat.LOBBY);
+        pluginManager.registerEvents(new playerDeath(), this);
+        pluginManager.registerEvents(new playerRespawn(), this);
         pluginManager.registerEvents(new onDrop(), this);
         pluginManager.registerEvents(new onQuit(), this);
         pluginManager.registerEvents(new entityDamage(), this);
@@ -49,7 +52,8 @@ public class MainIWO extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        getArmorStand().removeArmorStand(new Location(Bukkit.getWorld("world"), 1045, 5, 182));
+        getArmorStand().removeArmorStand(new Location(Bukkit.getWorld("world"), 1126, 5, 182));
     }
 
     public static MainIWO getInstance() {

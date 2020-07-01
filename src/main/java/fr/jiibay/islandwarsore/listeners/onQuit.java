@@ -2,6 +2,7 @@ package fr.jiibay.islandwarsore.listeners;
 
 import fr.jiibay.islandwarsore.MainIWO;
 import fr.jiibay.islandwarsore.managers.PlayerProfile;
+import fr.jiibay.islandwarsore.managers.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -18,8 +19,9 @@ public class onQuit implements Listener {
 
         PlayerProfile playerProfile = MainIWO.getInstance().playerProfile.get(player.getUniqueId());
 
-
         playerProfile.getTeam().removePlayer(player);
+
+
         event.setQuitMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " a quitté la partie !");
     }
 }
